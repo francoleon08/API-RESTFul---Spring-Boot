@@ -5,6 +5,7 @@ import com.francoleon.apirestful.repository.LocalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LocalServiceImpl implements LocalService{
@@ -48,5 +49,15 @@ public class LocalServiceImpl implements LocalService{
     @Override
     public void deleteLocal(long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Local> findLocalByName(String name) {
+        return repository.findByName(name);
+    }
+
+    @Override
+    public List<Local> findAllLocalByFloor(String floor) {
+        return repository.findAllByFloor(floor);
     }
 }

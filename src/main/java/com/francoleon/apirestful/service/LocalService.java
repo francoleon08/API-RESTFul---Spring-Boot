@@ -3,6 +3,7 @@ package com.francoleon.apirestful.service;
 import com.francoleon.apirestful.entity.Local;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LocalService {
 
@@ -39,4 +40,18 @@ public interface LocalService {
      * @param id
      */
     public void deleteLocal(long id);
+
+    /**
+     * Busca un local por su nombre
+     * @param name nombre del local
+     * @return
+     */
+    public Optional<Local> findLocalByName(String name);
+
+    /**
+     * Busca todos los locales con el piso recibido
+     * @param floor piso
+     * @return
+     */
+    public List<Local> findAllLocalByFloor(String floor);
 }
