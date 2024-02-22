@@ -1,12 +1,13 @@
 package com.francoleon.apirestful.controller;
 
-import com.francoleon.apirestful.entity.Local;
+import com.francoleon.apirestful.error.LocalNotFoundException;
+import com.francoleon.apirestful.persistence.entity.Local;
 import com.francoleon.apirestful.service.LocalService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class LocalController {
@@ -20,8 +21,13 @@ public class LocalController {
     }
 
     @GetMapping("/findLocalByName/{name}")
-    public Optional<Local> findLocalByName(@PathVariable String name) {
+    public Local findLocalByName(@PathVariable String name) throws LocalNotFoundException {
         return service.findLocalByName(name);
+    }
+
+    @GetMapping("/findLocalById/{id}")
+    public Local findLocalById(@PathVariable long id) throws LocalNotFoundException {
+        return service.findLocalById(id);
     }
 
     @GetMapping("/findAllLocalByFloor/{floor}")
@@ -30,17 +36,18 @@ public class LocalController {
     }
 
     @PostMapping("/saveLocal")
-    public Local saveLocal(@RequestBody Local local){
+    public Local saveLocal(@Valid @RequestBody Local local){
         return service.saveLocal(local);
     }
 
+    //falta caputurar la excpetion en RestResponse.. para cuando alguna entidad no es valida
     @PostMapping("/saveLocals")
-    public List<Local> saveLocals(@RequestBody List<Local> locals){
+    public List<Local> saveLocals(@RequestBody List<@Valid Local> locals) {
         return service.saveLocals(locals);
     }
 
     @PutMapping ("/updateLocal/{id}")
-    public Local updateLocal(@PathVariable Long id, @RequestBody Local local) {
+    public Local updateLocal(@PathVariable Long id, @Valid @RequestBody Local local) throws LocalNotFoundException {
         return service.updateLocal(id, local);
     }
 

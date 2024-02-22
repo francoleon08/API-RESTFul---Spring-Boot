@@ -1,0 +1,45 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: prod
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/apirestful_springboot?serverTimezone=UTC
+    username: root
+    password: ''
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+---
+spring:
+  config:
+    activate:
+      on-profile: dev_reset
+  datasource:
+    url: jdbc:mysql://localhost:3306/apirestful_springboot?serverTimezone=UTC
+    username: root
+    password: ''
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: mysql
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:mysql://localhost:3306/apirestful_springboot_prod?serverTimezone=UTC
+    username: root
+    password: ''
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update

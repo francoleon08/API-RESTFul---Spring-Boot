@@ -1,6 +1,7 @@
 package com.francoleon.apirestful.service;
 
-import com.francoleon.apirestful.entity.Local;
+import com.francoleon.apirestful.error.LocalNotFoundException;
+import com.francoleon.apirestful.persistence.entity.Local;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +33,9 @@ public interface LocalService {
      * @param id del local a actualizar
      * @param local
      * @return
+     * @throws LocalNotFoundException exception de Local no existente
      */
-    public Local updateLocal(long id, Local local);
+    public Local updateLocal(long id, Local local) throws LocalNotFoundException;
 
     /**
      * Elimina un local por id de la base de datos
@@ -45,8 +47,9 @@ public interface LocalService {
      * Busca un local por su nombre
      * @param name nombre del local
      * @return
+     * @throws LocalNotFoundException exception de Local no existente
      */
-    public Optional<Local> findLocalByName(String name);
+    public Local findLocalByName(String name) throws LocalNotFoundException;
 
     /**
      * Busca todos los locales con el piso recibido
@@ -54,4 +57,12 @@ public interface LocalService {
      * @return
      */
     public List<Local> findAllLocalByFloor(String floor);
+
+    /**
+     * Busca un local por su id.
+     * @param id
+     * @return
+     * @throws LocalNotFoundException exception de Local no existente
+     */
+    public Local findLocalById(long id) throws LocalNotFoundException;
 }
